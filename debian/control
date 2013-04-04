@@ -78,7 +78,7 @@ Build-Depends: debhelper (>= 9),
 # --enable-vnc-png
 # --enable-kvm		linux-*
 # --enable-vhost-net	linux-*	# is it really linux-specific?
-##--enable-glusterfs todo
+# --enable-glusterfs 
 ##--enable-rbd todo
 Build-Conflicts: oss4-dev
 Standards-Version: 3.9.4
