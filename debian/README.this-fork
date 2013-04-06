@@ -1,9 +1,0 @@
-Forked from git://anonscm.debian.org/pkg-qemu/qemu.git, branch 
-debian-experimental, in order to add GlusterFS distributed storage
-integration to the latest QEMU Debian package. 
-
-QEMU version 1.4.0 at the time of writing.
-
-See also 
-http://raobharata.wordpress.com/2012/10/29/qemu-glusterfs-native-integration/ 
-
