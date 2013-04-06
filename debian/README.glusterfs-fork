@@ -5,10 +5,14 @@ distributed storage into the latest QEMU Debian package (>=1.4.0).
 See also 
 http://raobharata.wordpress.com/2012/10/29/qemu-glusterfs-native-integration/ 
 
-At the time of writing (2013-04-06) all build dependencies should be satisfied
-by wheezy (so this would actually be a backport to it) except libseccomp(-dev).
-You could add sid (or experimental) to sources.list, while retaining wheezy as 
-default version in apt.conf:
+At the time of writing (2013-04-06) most of build dependencies are satisfied
+by wheezy (so this would be a wheezy backport), but there are exceptions:
+
+* libseccomp-dev                                                   # sid or experimental
+* libspice-server-dev libspice-protocol-dev libusbredirparser-dev  # experimental
+
+You can add experimental (and sid, possibly) to /etc/apt/sources.list, while 
+retaining wheezy as default release in /etc/apt/apt.conf:
 
     # /etc/apt/apt.conf
     APT::Default-Release "wheezy";
