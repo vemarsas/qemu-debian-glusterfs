@@ -10,5 +10,5 @@ by wheezy (so this would be a wheezy backport) but there are a few exceptions
 (edit your sources.list appropiately):
 
 apt-get -t sid install libseccomp-dev
-apt-get -t experimental install libspice-server-dev libspice-protocol-dev libusbredirparser-dev ipxe-qemu seabios vgabios
+apt-get -t experimental install libspice-server-dev libspice-protocol-dev libusbredirparser-dev seabios vgabios
 
