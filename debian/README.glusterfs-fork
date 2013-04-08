@@ -7,8 +7,8 @@ http://raobharata.wordpress.com/2012/10/29/qemu-glusterfs-native-integration/
 
 At the time of writing (2013-04-07) most of build dependencies are satisfied
 by wheezy (so this would be a wheezy backport) but there are a few exceptions
-(edit your sources.list appropiately):
+(edit your sources.list appropriately):
 
 apt-get -t sid install libseccomp-dev
-apt-get -t experimental install libspice-server-dev libspice-protocol-dev libusbredirparser-dev seabios vgabios
+apt-get -t experimental install libspice-server-dev libspice-protocol-dev libusbredirparser-dev seabios
 
