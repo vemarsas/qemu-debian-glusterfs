@@ -193,12 +193,6 @@ ifeq (${enable_system},enable)
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 
-# /usr/bin/kvm compat script.  This needs some more work for other arches
-# How about a manpage for it?
-ifneq ($(filter $(DEB_HOST_ARCH),amd64 i386),)
-	dh_install -pqemu-system-x86 debian/kvm /usr/bin/
-endif
-
 # virtfs-proxy-helper is linux-specific
 	for f in usr/bin/virtfs-proxy-helper \
 	         usr/share/man/man1/virtfs-proxy-helper.1 ; do \

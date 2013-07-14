@@ -8,6 +8,9 @@ qemu (1.5.0+dfsg-5) UNRELEASED; urgency=low
     lots of additional dependencies
   * remove obsolete /etc/init.d/qemu-kvm (Closes: #712898)
   * fix versions of obsolete qemu-kvm conffiles to be removed
+  * move /usr/bin/kvm compat wraper from qemu-system-x86 back to qemu-kvm
+    It seemed to be a good idea to move it to -x86, but it turned
+    out not to be.
 
  -- Michael Tokarev <mjt@tls.msk.ru>  Tue, 11 Jun 2013 00:36:04 +0400
 
