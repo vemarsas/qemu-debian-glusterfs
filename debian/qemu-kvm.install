@@ -1,0 +1,2 @@
+debian/kvm usr/bin
+debian/kvm.1 usr/share/man/man1
