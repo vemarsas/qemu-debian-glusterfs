@@ -4,6 +4,8 @@ qemu (1.5.1+dfsg-0+glusterfs) testing; urgency=low
   * from debian/debian-unstable-mjt branch
   * glusterfs native support
 
+ -- Guido De Rosa <guido.derosa@vemarsas.it>  Fri, 19 Jul 2013 19:20:32 +0200
+
 qemu (1.5.0+dfsg-2+glusterfs) testing; urgency=low
 
   * specific version including glusterfs
