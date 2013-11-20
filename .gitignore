@@ -85,7 +85,6 @@ fsdev/virtfs-proxy-helper.pod
 *.swp
 *.orig
 .pc
-*.patch
 *.gcda
 *.gcno
 patches
