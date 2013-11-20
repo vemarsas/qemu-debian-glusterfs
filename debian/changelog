@@ -1,3 +1,11 @@
+qemu (1.6.1+dfsg-0+glusterfs) testing; urgency=low
+
+  * release 1.6.1 via debian/patches
+  * from debian/debian-unstable branch
+  * glusterfs native support
+
+ -- Guido De Rosa <guido.derosa@vemarsas.it> Thu, 21 Nov 2013 00:23:27 +0100
+
 qemu (1.6.0+dfsg-3) UNRELEASED; urgency=low
 
   * mention closing of #721713
