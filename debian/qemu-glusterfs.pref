@@ -1,0 +1,17 @@
+# QEMU packages installed on this system have been forked from
+# git://anonscm.debian.org/pkg-qemu/qemu.git, branch: debian-unstable, 
+# and slightly modified to natively integrate GlusterFS distributed 
+# storage.
+#
+# More information on Gluster native integration is available at
+# http://raobharata.wordpress.com/2012/10/29/qemu-glusterfs-native-integration/ 
+
+# APT-pinning is used here to prevent those packages from being overwritten
+# by non-gluster-enabled debs during an apt-get upgrade. 
+
+# To do so, the following APT preferences are added:
+
+Package: qemu*
+Pin: version *-*+glusterfs
+Pin-Priority: 1001
+
