@@ -1,17 +1,13 @@
 Forked from git://anonscm.debian.org/pkg-qemu/qemu.git, 
 branch: debian-unstable, in order to natively integrate GlusterFS 
-distributed storage into the latest QEMU Debian package (>=1.4.0). 
+distributed storage. 
 
-See also 
+More info on GlusterSF native integration at
 http://raobharata.wordpress.com/2012/10/29/qemu-glusterfs-native-integration/ 
 
-You may consider APT-pinning, to prevent these packages from being oerwritten
+APT-pinning is being used to prevent these packages from being oerwritten
 by non-gluster debs during an apt-get upgrade. 
 
-To do so, create a preference file /etc/apt/preferences.d/qemu-glusterfs.pref, 
-with the following content:
-
-Package: qemu*
-Pin: version *-*+glusterfs
-Pin-Priority: 1001
+To do so, an /etc/apt/preferences.d/qemu-glusterfs.pref file is 
+installed.
 
