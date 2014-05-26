@@ -1,3 +1,9 @@
+qemu (2.0.0+dfsg-100+glusterfs) testing; urgency=high
+
+  * new major upstream release
+
+ -- Vemar <dev@vemarsas.it>  Fri, 30 May 2014 01:22:41 +0200
+
 qemu (2.0.0+dfsg-7) UNRELEASED; urgency=medium
 
   * clarify description of qemu-user-binfmt a bit 
