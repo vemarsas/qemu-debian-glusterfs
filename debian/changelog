@@ -1,24 +1,234 @@
-qemu (1.6.1+dfsg-0+glusterfs) testing; urgency=low
+qemu (2.0.0+dfsg-7) UNRELEASED; urgency=medium
 
-  * release 1.6.1 via debian/patches
-  * from debian/debian-unstable branch
-  * glusterfs native support
+  * clarify description of qemu-user-binfmt a bit 
+  * build-depend on acpica-tools (iasl) in order to rebuild .dsl files
 
- -- Guido De Rosa <guido.derosa@vemarsas.it>  Thu, 21 Nov 2013 00:23:27 +0100
+ -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 23 May 2014 17:03:41 +0400
 
-qemu (1.6.0+dfsg-3) UNRELEASED; urgency=low
+qemu (2.0.0+dfsg-6) unstable; urgency=medium
 
-  * mention closing of #721713
-  * configure-create-fsdev-directory.patch to fix another FTBFS on s390
+  * build-depend on libgnutls28-dev not libgnutls-dev
+  * added qcow1 block format validation patches from upstream:
+   block-fmt-validation/qcow1-check-maximum-cluster-size.patch
+   block-fmt-validation/qcow1-stricter-backing-file-length-check.patch
+   block-fmt-validation/qcow1-validate-image-size-CVE-2014-0223.patch
+   block-fmt-validation/qcow1-validate-L2-table-size-CVE-2014-0222.patch
+    (Finally closes: #742730, CVE-2014-0222, CVE-2014-0223)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 23 May 2014 12:12:38 +0400
+
+qemu (2.0.0+dfsg-5) unstable; urgency=medium
+
+  * re-re-enable rbd (ceph) support again (Closes: #689239)
+    Should watch for breakage and for runtime dependencies closely from now on.
+  * fix qemu-kvm package description (stop mentioning it is transitional)
+  * move all binfmt handling from many files to d/binfmt-update-in
+  * introduce qemu-user-binfmt (dummy) package to support binfmt
+    registration of qemu-user binaries (Closes: #677529)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Tue, 13 May 2014 21:15:48 +0400
+
+qemu (2.0.0+dfsg-4) unstable; urgency=medium
+
+  * suggests ovmf, not recommends it as it is not in -main (Closes: #745698)
+  * cputlb-fix-regression-with-TCG-interpreter.patch (Closes: #744342)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Wed, 30 Apr 2014 10:03:55 +0400
+
+qemu (2.0.0+dfsg-3) unstable; urgency=low
+
+  * 2.0.0 closed #744213 (CVE-2013-4544) and #745157 (CVE-2014-2894)
+  * mjt-set-oem-in-rsdt-like-slic.diff: apply a (hackish) patch to simplify
+    running OEM versions of windows vista and 7 in qemu using SLIC table
+    from current hardware.
+  * set VENDOR in d/rules
+  * added forgotten qemu-kvm Pre-Depends field
+  * switch back from sdl2 to sdl1, as the former apparently isn't ready yet
+    (Closes: #745269)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Mon, 21 Apr 2014 12:34:03 +0400
+
+qemu (2.0.0+dfsg-2) unstable; urgency=medium
+
+  * resurrect 02_kfreebsd.patch, -- without it qemu FTBFS on current
+    Debian kFreeBSD system still.
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Thu, 17 Apr 2014 22:04:38 +0400
+
+qemu (2.0.0+dfsg-1) unstable; urgency=low
+
+  * new upstream major release
+     Closes: #744213 CVE-2013-4544
+     Closes: #745157 CVE-2014-2894
+  * 2.0 actually does not close #739589,
+    remove it from from last changelog entry
+  * mention closing of #707629 by 2.0
+  * mention a list of CVE IDs closed by #742730
+  * mention closing of CVE-2013-4377 by 1.7.0-6
+  * do not set --enable-uname-release=2.6.32 for qemu-user anymore
+    (was needed for old ubuntu builders)
+  * removed 02_kfreebsd.patch: it adds configure check for futimens() and
+    futimesat() syscalls on FreeBSD, however futimens() appeared in FreeBSD
+    5.0, and futimesat() in 8.0, and 8.0 is the earliest supported version
+  * kmod dependency is linux-any
+  * doc-grammify-allows-to.patch: fix some lintian warnings
+  * remove alternatives for qemu: different architectures
+    aren't really alternatives and never had been 
+  * update Standards-Version to 3.9.5 (no changes needed)
+  * exec-limit-translation-limiting-in-address_space_translate-to-xen.diff -
+    fixes windows BSOD with virtio-scsi when upgrading from 1.7.0 to 1.7.1
+    or 2.0, among other things
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Thu, 17 Apr 2014 18:27:15 +0400
+
+qemu (2.0.0~rc1+dfsg-1exp) experimental; urgency=low
+
+  * new upstream release candidate (2.0-rc1)
+    Closes: #742730 -- image format processing issues:
+     CVE-2014-0142 CVE-2014-0143 CVE-2014-0144 CVE-2014-0145
+     CVE-2014-0146 CVE-2014-0147 CVE-2014-0148
+    Closes: #743235, #707629
+  * refreshed patches:
+    02_kfreebsd.patch
+    retry-pxe-after-efi.patch
+    use-fixed-data-path.patch
+  * removed patches applied upstream:
+    qemu-1.7.1.diff
+    address_space_translate-do-not-cross-page-boundaries.diff
+    fix-smb-security-share.patch
+    slirp-smb-redirect-port-445-too.patch
+    implement-posix-timers.diff
+    linux-user-fixed-s390x-clone-argument-order.patch
+  * added bios-256k.bin symlink and bump seabios dependency to >= 1.7.4-2
+  * recommend ovmf package for qemu-system-x86 to support UEFI boot
+    (Closes: #714249)
+  * switch from sdl1 to sdl2 (build-depend on libsdl2-dev)
+  * output last 50 lines of config.log in case configure failed
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Sat, 05 Apr 2014 16:23:48 +0400
+
+qemu (1.7.0+dfsg-9) unstable; urgency=medium
+
+  * remove rbd/rados/ceph support *again*, till they'll actually provide
+    some symbol/library version mechanism
+    (Closes:  #744364, Reopens: #729961, #689239)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Sun, 13 Apr 2014 18:49:46 +0400
+
+qemu (1.7.0+dfsg-8) unstable; urgency=low
+
+  * fix a brown-paper-bag bug in the previous upload
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 11 Apr 2014 22:01:32 +0400
+
+qemu (1.7.0+dfsg-7) unstable; urgency=high
+
+  * fix guest-triggerable buffer overrun in virtio-net device
+    (Closes: #744221 CVE-2014-0150)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 11 Apr 2014 20:27:16 +0400
+
+qemu (1.7.0+dfsg-6) unstable; urgency=medium
+
+  * make ceph (rbd) support linux-only, since it exists only on linux
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Sat, 05 Apr 2014 13:59:48 +0400
+
+qemu (1.7.0+dfsg-5) unstable; urgency=medium
+
+  * remove OVMF.fd symlink added in -4, it belongs to ovmf (Closes: #741494)
+  * qemu-debootstrap: add support for arm64 architecture (Closes: #740112)
+  * mention closing of #725176 by 1.7.0
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Thu, 13 Mar 2014 06:21:01 +0400
+
+qemu (1.7.0+dfsg-4) unstable; urgency=medium
+
+  [ Michael Tokarev ]
+  * 1.7.1 stable upstream release (Closes: #719633)
+    Closes: CVE-2013-4377
+  * implement-posix-timers.diff from upstream (Closes: #732258)
+  * address_space_translate-do-not-cross-page-boundaries.diff -
+    upstream bugfix for xen
+  * break libvirt << 1.2, not just 1.0, we need 1.2+ after qemu-1.6.
+  * add linux-user-fixed-s390x-clone-argument-order.patch (Closes: #739800)
+  * re-enable cepth (rbd) support (Closes: #729961, #689239)
+
+  [ Steve Langasek ]
+  * (from Ubuntu) add symlink for OVMF.fd, which is now available in Debian
+    non-free.
+  * libusbredir is enabled in Ubuntu too, so sync debian/control.
+  * Enable building for ppc64el (in both Debian and Ubuntu): Debian does not
+    have a ppc64el port yet, but qemu builds out of the box there so it's
+    safe/appropriate to enable.
+  * Merge in Ubuntu-specific (and Ubuntu-tagged) debian/control changes.
+  * Enable building for arm64; the arm64 target is not yet merged, but the
+    package doesn't need arm64 target support to build for an arm64 host.
+
+  [ Riku Voipio ]
+  * control: build-depend on python:any (change originally made
+    in Aug-2013 but reverted by mjt later)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Wed, 12 Mar 2014 18:34:03 +0400
+
+qemu (1.7.0+dfsg-3) unstable; urgency=low
+
+  * qemu-kvm: fix versions for Breaks/Replaces/Depends on qemu-system-x86
+  * qemu-system-ppc: depend on openbios-ppc >= 1.1+svn1229 to fix boot issues
+  * qemu-system-sparc: depend on openbios-sparc >= 1.1+svn1229 too
+  * remove unused lintian overrides for qemu-user from qemu (meta)package
+  * qemu-system-*: depend on unversioned qemu-keymaps and qemu-system-common
+    packages (no particular version of any is hard-required)
+  * remove debian/README.source (was from quilt)
+  * add myself to debian/copyright
+  * reorder d/control to have Recommends:/Suggests: closer to Depends.
+  * rename d/control to d/control-in and add a d/rules rule to build it
+    based on ${VENDOR}
+  * allow different content in d/control for debian/ubuntu
+  * added debian/README-components-versions
+  * fixed qemu-armeb binfmt (Closes: #735078)
+  * added powerpcspe host arch (Closes: #734696)
+  * do not check for presence of update-alternatives which is part of dpkg
+    (Closes: #733222)
+  * do not call update-alternative --remove from postrm:remove
+    (lintian complains about this)
+  * add efi netrom links.  This requires new ipxe-qemu.
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Thu, 16 Jan 2014 15:17:46 +0400
+
+qemu (1.7.0+dfsg-2) unstable; urgency=low
+
+  * switch from vgabios to seavgabios
+  * rework update-alternatives handling for qemu-system (Closes: #722914)
+  * mention closing of #326886, #390444, #706237 and CVE-2013-4375 for 1.7.0
+  * rearrange libvte-dev build-dependency to come together with gtk, and
+    comment it out (since gtk frontend isn't being built)
+  * re-introduce qemu-kvm package with just a wrapper (/usr/bin/kvm)
+    and make this wrapper to force kvm mode (Closes: #727762)
+  * use less strict dependency on qemu-keymaps
+  * added fix-smb-security-share.patch by Michael Büsch (Closes: #727756)
+  * added move-ncalrpc-dir-to-tmp.patch by Michael Büsch (Closes: #728876)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 29 Nov 2013 00:16:44 +0400
+
+qemu (1.7.0+dfsg-1) unstable; urgency=low
+
+  * new upstream release (Closes: #724758, #326886, #390444, #706237, #725176)
+    Also fixes CVE-2013-4375 (xen-specific qemu disk backend (qdisk)
+    resource leak)
+  * tweak kvm loading script to not load module for 3.4+ kernel
+    (kernel autoloads kvm modules since 3.4) (Closes: #717811)
+  * mention closing of #721713, #710971, #674201
   * refresh use-fixed-data-path.patch to contain just the min. changes
   * fix pxe-eepro100.rom link (never worked in qemu due to wrong name)
+  * remove old $Id$ line from debian/rules
 
- -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 11 Oct 2013 12:29:55 +0400
+ -- Michael Tokarev <mjt@tls.msk.ru>  Thu, 28 Nov 2013 03:14:21 +0400
 
 qemu (1.6.0+dfsg-2) unstable; urgency=low
 
   * Build-depend in seccomp again once it is in -testing
-  * 1.6.1 upstream bugfix release (Closes: #725944, #721713)
+  * 1.6.1 upstream bugfix release (Closes: #725944, #721713, #710971)
   * fix "allows [one] to" in qemu-ga description
   * fix descriptions for qemu-system and qemu-system-common packages
 
@@ -26,8 +236,7 @@ qemu (1.6.0+dfsg-2) unstable; urgency=low
 
 qemu (1.6.0+dfsg-1) unstable; urgency=low
 
-  [ Michael Tokarev ]
-  * final upstream v1.6.0 (Closes: #718180, #714273, #605525, #701855)
+  * final upstream v1.6.0 (Closes: #718180, #714273, #605525, #701855, #674201)
   * removed configure-explicitly-disable-virtfs-if-softmmu=no.patch
   * mention closing of #717724 by 1.6
   * mention closing of #710971 by 1.5 (which disabled gtk support)
