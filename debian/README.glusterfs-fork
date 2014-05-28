@@ -11,3 +11,6 @@ by non-gluster debs during an apt-get upgrade.
 To do so, an /etc/apt/preferences.d/qemu-glusterfs.pref file is 
 installed.
 
+NOTE: control has been replaced by control-in. To get debian/control
+run:
+    debian/rules debian/control
