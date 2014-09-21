@@ -1,10 +1,92 @@
+qemu (2.1+dfsg-100+glusterfs) testing; urgency=high
+
+  * new major upstream release
+
+ -- Vemar <dev@vemarsas.it>  Sun, 21 Set 2014 02:40:00 +0100
+
 qemu (2.0.0+dfsg-100+glusterfs) testing; urgency=high
 
   * new major upstream release
 
  -- Vemar <dev@vemarsas.it>  Fri, 30 May 2014 01:22:41 +0200
 
-qemu (2.0.0+dfsg-7) UNRELEASED; urgency=medium
+qemu (2.1+dfsg-5) UNRELEASED; urgency=medium
+
+  * Add x32 to the list of supported architectures
+    (patch by Thorsten Glaser)
+  * fix wrong reference in kvm.1 (Closes: #761137)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Wed, 03 Sep 2014 20:29:40 +0400
+
+qemu (2.1+dfsg-4) unstable; urgency=medium
+
+  * mention libnuma-dev but not enable for now
+  * 9p-readdir.patch: fix readdir in 9p mapped mode (Closes: #755738)
+  * pc-reserve-more-memory-for-acpi.patch: fix linux -kernel not working
+    with new qemu (Closes: #759522)
+  * qemu-options-add-missing--drive-discard-option-to-cmdline-help.diff -
+    documentation fix
+  * mention that 2.1 closed #754336.
+  * move qemu-bridge-helper to /usr/lib/qemu/ subdir (lintian)
+  * debian/binfmt-update-in (Serge Hallyn):
+    - don't run in a container
+    - add ppc64le as target
+  * add apport hook from ubuntu package (ubuntu-only for now)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Sun, 31 Aug 2014 09:32:59 +0400
+
+qemu (2.1+dfsg-3) unstable; urgency=medium
+
+  * set SHELL = /bin/sh -e, so that more complex shell constructs
+    in d/rules will fail if any command fail inside
+  * check for pipe2() being a stub too, like utimensat() etc
+  * build-depend on gnutls-dev, not libgnutls*-dev, so the
+    buuld system will pick default gnutls impl (so it works for
+    backports and future versions)
+  * build-depend on libjpeg-dev not libjpeg8-dev
+  * minimum version of seabios is 1.7.5 (Closes: #757958)
+  * ide-only-constrain-read_write-requests-to-drive-size.diff
+    (Closes: #757927)
+  * added use-arch-data-path.patch, to be able to search for binary
+    blobs in several (arch-specific) data directories instead of just one.
+  * removed all blob/firmware symlinks from qemu-system-x86, using
+    arch-specific datapath instead (/usr/share/seabios:/usr/lib/ipxe/qemu)
+  * removed retry-pxe-after-efi.patch and depend on ipxe-qemu which
+    introduced efi boot roms.  qemu should not try to load "wrong"
+    ROM, or else migration will fail due to rom size mismatch.
+  * include /usr/lib/qemu-bridge-helper binary, but not make it setuid
+    due to security concerns outlined in #691138 (Closes: #691138)
+  * make vnc-jpeg not debian-specific
+  * install kvm-spice symlinks on ubuntu
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Thu, 14 Aug 2014 14:30:24 +0400
+
+qemu (2.1+dfsg-2) unstable; urgency=medium
+
+  * l2tp-linux-only.patch: fix FTBFS on kfreebsd
+  * imx_timer_TIMER_MAX_clash.diff: fix ITIMER_MAX definition clash
+  * remove kfreebsd hack which disabled usb support on this platform
+    since qemu-1.3: it isn't needed anymore
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Sat, 02 Aug 2014 00:51:04 +0400
+
+qemu (2.1+dfsg-1) unstable; urgency=medium
+
+  * new upstream release
+    Closes: #739589 CVE-2014-3461
+    Closes: #735618
+    Closes: #754336
+  * versioned build-depend on libiscsi-dev (>>1.9.0~)
+  * added ppc64le user target
+  * fix description of qemu-user-binfmt wrt "empty" (Closes: #755988)
+  * use /usr/share/dpkg/pkg-info.mk instead of inventing the same locally
+  * added debian/get-orig-source.sh (and a d/rules target)
+  * set ubuntu vcs branch to ubuntu-utopic
+  * binfmt-update-in: make sure to filter out compat arches
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 01 Aug 2014 20:06:22 +0400
+
+qemu (2.0.0+dfsg-7) unstable; urgency=medium
 
   * clarify description of qemu-user-binfmt a bit 
   * build-depend on acpica-tools (iasl) in order to rebuild .dsl files
@@ -18,8 +100,10 @@ qemu (2.0.0+dfsg-7) UNRELEASED; urgency=medium
    - make symlinks from /usr/share/doc/qemu-system-foo/common to ../q-s-c/
    - ship doc-base file for qemu-system-common too (for qemu-doc.html)
    - rename qemu.1 manpage to qemu-system.1
+  * qemu-user-static & qemu-user-binfmt conflict with each other, not break.
+  * mention that qemu-user-binfmt is empty package (lintian)
 
- -- Michael Tokarev <mjt@tls.msk.ru>  Fri, 23 May 2014 17:03:41 +0400
+ -- Michael Tokarev <mjt@tls.msk.ru>  Thu, 24 Jul 2014 16:51:16 +0400
 
 qemu (2.0.0+dfsg-6) unstable; urgency=medium
 
